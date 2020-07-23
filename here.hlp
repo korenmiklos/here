@@ -10,12 +10,14 @@ A Simpler Way to Find Your Files
 Installation
 ------------
 
+^net install here, from("https://raw.githubusercontent.com/korenmiklos/here/master/")^
+
 Usage
 -----
 
 Type the command ^here^ anywhere inside a project folder and it will put the *root* of the project folder into a global macro called ^here^.
 
-^. pwd
+. pwd
 /Users/koren/projects/social-distancing/analysis/counterfactual
 
 . here
@@ -24,25 +26,24 @@ Type the command ^here^ anywhere inside a project folder and it will put the *ro
 . display "${here}"
 /Users/koren/projects/social-distancing
 
-. import delimited "${here}/data/raw/bls/employment.csv"^
+. import delimited "${here}/data/raw/bls/employment.csv"
 
 To fix the root folder, use ^here, set^.
 
-^. cd "/Users/koren/projects/social-distancing/analysis"
+. cd "/Users/koren/projects/social-distancing/analysis"
 /Users/koren/projects/social-distancing/analysis
 
 . here, set
 /Users/koren/projects/social-distancing/analysis
 
 . display ${here}
-/Users/koren/projects/social-distancing/analysis^
+/Users/koren/projects/social-distancing/analysis
 
 Under the hood
 --------------
 
 With the basic usage, ^here^ looks for a parent folder with the (empty) file ".here" in it. Suppose you have the following folder structure.
 
-^
 .
 ├── .here
 ├── analysis
@@ -52,7 +53,6 @@ With the basic usage, ^here^ looks for a parent folder with the (empty) file ".h
 └── data
     └── raw
         └── employment.csv
-^
 
 Whether you call ^here^ from "analysis/regress.do" or from "analysis/counterfactual/simulate.do", the value of ^${here}^ will be absolute path of the folder containing the file ".here". Whevener you issue
 

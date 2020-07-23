@@ -3,6 +3,12 @@
 
 ## Installation
 
+Install with `net install`:
+
+```
+net install here, from("https://raw.githubusercontent.com/korenmiklos/here/master/")
+```
+
 ## Usage
 
 Type the command `here` anywhere inside a project folder and it will put the *root* of the project folder into a global macro called `here`.
