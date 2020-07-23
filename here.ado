@@ -23,9 +23,9 @@ program define here, rclass
 		}
 
 		local `here' = c(pwd)	
-		quietly cd "``current''"
+		quietly cd "``current''/"
 	}
-	return local here "``here''"
-	global here "``here''"
-	display "``here''"
+	return local here "``here''/"
+	global here "``here''/"
+	display "``here''/"
 end
