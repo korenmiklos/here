@@ -20,7 +20,7 @@ Type the command `here` anywhere inside a project folder and it will put the *ro
 . import delimited "${here}/data/raw/bls/employment.csv"
 ```
 
-To fix the root folder, use `here`.
+To fix the root folder, use `here, set`.
 
 ```
 . cd "/Users/koren/projects/social-distancing/analysis"
