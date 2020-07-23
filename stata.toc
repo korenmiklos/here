@@ -1,0 +1,8 @@
+v 5.0.0
+d Author Miklós Koren
+d korenm@ceu.edu
+d https://github.com/korenmiklos/here
+
+d 'here': a simpler way to find your files
+
+p here
