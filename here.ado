@@ -15,23 +15,19 @@ program define here, rclass
 		local `current' = c(pwd)
 		
 		* are we there yet?
-		capture confirm file ".here"
+		are_we_there_yet
 		while (_rc) {
 			* if at root folder without .here, stop with an error
 			if ("`c(pwd)'" == "") {
-				display in red "Project folder not found."
-				quietly cd "``current''/"
-				error 170
+				break_with_error, directory(``current'')
 			}
 			
 			* if not, go up one level
 			capture quietly cd ".."
 			if (_rc) {
-				display in red "Project folder not found."
-				quietly cd "``current''/"
-				error 170
+				break_with_error, directory(``current'')
 			}
-			capture confirm file ".here"
+			are_we_there_yet
 		}
 
 		local `here' = c(pwd)	
@@ -40,4 +36,19 @@ program define here, rclass
 	return local here "``here''/"
 	global here "``here''/"
 	display "``here''/"
+end
+
+program define are_we_there_yet
+	capture confirm file ".here"
+	if (_rc != 0) {
+		capture confirm file ".git"
+	}
+end
+
+program define break_with_error
+	syntax , directory(string)
+
+	display in red "Project folder not found."
+	quietly cd "`directory'/"
+	error 170
 end
