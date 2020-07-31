@@ -17,8 +17,20 @@ program define here, rclass
 		* are we there yet?
 		capture confirm file ".here"
 		while (_rc) {
+			* if at root folder without .here, stop with an error
+			if ("`c(pwd)'" == "") {
+				display in red "Project folder not found."
+				quietly cd "``current''/"
+				error 170
+			}
+			
 			* if not, go up one level
-			quietly cd ".."
+			capture quietly cd ".."
+			if (_rc) {
+				display in red "Project folder not found."
+				quietly cd "``current''/"
+				error 170
+			}
 			capture confirm file ".here"
 		}
 
