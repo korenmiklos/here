@@ -1,6 +1,5 @@
 program define here, rclass
 	syntax [, nogit set]
-	* FIXME: implement .git
 	
 	tempname here
 	
@@ -15,7 +14,7 @@ program define here, rclass
 		local `current' = c(pwd)
 		
 		* are we there yet?
-		are_we_there_yet
+		are_we_there_yet, `git'
 		while (_rc) {
 			* if at root folder without .here, stop with an error
 			if ("`c(pwd)'" == "") {
@@ -27,7 +26,7 @@ program define here, rclass
 			if (_rc) {
 				break_with_error, directory(``current'')
 			}
-			are_we_there_yet
+			are_we_there_yet, `git'
 		}
 
 		local `here' = c(pwd)	
@@ -39,8 +38,10 @@ program define here, rclass
 end
 
 program define are_we_there_yet
+	syntax [, nogit]
+	
 	capture confirm file ".here"
-	if (_rc != 0) {
+	if (_rc != 0) & ("`git'" != "nogit") {
 		capture confirm file ".git"
 	}
 end
