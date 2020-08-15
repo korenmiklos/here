@@ -20,6 +20,10 @@ program define here, rclass
 			if ("`c(pwd)'" == "") {
 				break_with_error, directory(``current'')
 			}
+			* this should really check if we are at a drive root for any drive letter. 
+			if ("`c(pwd)'" == "C:") {
+				break_with_error, directory(``current'')
+			}
 			
 			* if not, go up one level
 			capture quietly cd ".."
@@ -42,7 +46,7 @@ program define are_we_there_yet
 	
 	capture confirm file ".here"
 	if (_rc != 0) & ("`git'" != "nogit") {
-		capture confirm file ".git"
+		capture confirm file ".git/config"
 	}
 end
 
