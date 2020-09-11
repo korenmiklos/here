@@ -10,24 +10,20 @@ program define here, rclass
 		local `here' = c(pwd)
 	}
 	else {
-		tempname current
+		tempname current previous
 		local `current' = c(pwd)
 		
 		* are we there yet?
 		are_we_there_yet, `git'
 		while (_rc) {
-			* if at root folder without .here, stop with an error
-			if ("`c(pwd)'" == "") {
-				break_with_error, directory(``current'')
-			}
-			* this should really check if we are at a drive root for any drive letter. 
-			if ("`c(pwd)'" == "C:") {
-				break_with_error, directory(``current'')
-			}
-			
 			* if not, go up one level
+
+			local `previous' = c(pwd)
 			capture quietly cd ".."
-			if (_rc) {
+
+			* if at root folder, cd .. might fail or keep pwd the same
+			* in either case, we have not found .here so stop with an error
+			if (_rc) | ("`c(pwd)'" == "``previous''") {
 				break_with_error, directory(``current'')
 			}
 			are_we_there_yet, `git'
